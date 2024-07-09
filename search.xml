@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>利用GitHub page部署hexo个人博客</title>
+      <link href="/2024/07/09/%E5%88%A9%E7%94%A8GitHub-page%E9%83%A8%E7%BD%B2hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+      <url>/2024/07/09/%E5%88%A9%E7%94%A8GitHub-page%E9%83%A8%E7%BD%B2hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+      
+        <content type="html"><![CDATA[<h2 id="利用GitHub-page部署hexo个人博客"><a href="#利用GitHub-page部署hexo个人博客" class="headerlink" title="利用GitHub page部署hexo个人博客"></a>利用GitHub page部署hexo个人博客</h2><h3 id="1-本地操作：配置git、node-js-下载hexo框架"><a href="#1-本地操作：配置git、node-js-下载hexo框架" class="headerlink" title="1.本地操作：配置git、node.js, 下载hexo框架"></a>1.本地操作：配置git、node.js, 下载hexo框架</h3><p><strong>git</strong>：Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。Git 与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持</p><p><em><strong>git</strong>的操作目前你就可以想象成一个云，用一些命令你就可以把本地的代码“发送&#x2F;备份”到云上</em></p><p><strong>node.js</strong>：提供hexo的运行环境，提供npm下载各种插件和库，执行hexo命令</p><p>安装hexo的命令：</p><p><code>npm install -g hexo-cli</code></p><p>初始化hexo：</p><p><code>hexo init</code></p><p>hexo文件结构：</p><ul><li>public 最终所见网页的所有内容</li><li>node_modules 插件以及hexo所需node.js模块</li><li>_config.yml 站点配置文件，设定一些公开信息等</li><li>package.json 应用程序信息，配置hexo运行所需js包</li><li>scaffolds 模板文件夹，新建文章，会默认包含对应模板内容</li><li>themes 存放主题文件，hexo根据主题生成静态网页（速度贼快）</li><li>source 用于存放用户资源（除 posts 文件夹，其余命名方式为 “ + 文件名”的文件被忽略）</li></ul><h3 id="2-hexo的常用命令与主题"><a href="#2-hexo的常用命令与主题" class="headerlink" title="2.hexo的常用命令与主题"></a>2.hexo的常用命令与主题</h3><p>清除博客上次编译的静态文件：</p><p><code>hexo clean</code>  简化为  <code>hexo c</code></p><p>生成博客:</p><p><code>hexo generate</code>  简化为  <code>hexo g</code></p><p>部署博客到GitHub：</p><p><code>hexo deploy</code>  简化为  <code>hexo d</code></p><p>本地预览博客：</p><p><code>hexo s</code></p><p><strong>主题选择：</strong></p><p>可以在GitHub上选择不同的主题，这里选择butterfly</p><p>克隆主题文件：</p><p><code>git clone -b master https://gitee.com/immyw/hexo-theme-butterfly.git themes/butterfly</code></p><p>安装插件，即pug 以及 stylus 的渲染器：</p><p><code>npm install hexo-renderer-pug hexo-renderer-stylus --save</code></p><p>修改配置文件_config.yml</p><h3 id="3-配置GitHub-page与连接"><a href="#3-配置GitHub-page与连接" class="headerlink" title="3.配置GitHub page与连接"></a>3.配置GitHub page与连接</h3><p>建立同名库</p><p>在setting里配置pages</p><p><strong>连接本地项目与GitHub库：</strong></p><p>有三种方法：HTTPS、SSH、Github CLI</p><ul><li><strong>HTTPS</strong>：适合初学者和简单场景设置，操作时需要输入用户名和 token，安全性较 SSH 略低。</li><li><strong>SSH</strong>：适合长期使用和较高安全性要求的场景，初始配置略复杂，但后续使用方便。</li><li><strong>GitHub CLI</strong>：适合需要丰富 GitHub 操作命令的用户，结合了 HTTP 和 SSH 的优点，提供了更高层次的命令操作。</li></ul><p><strong>配置SSH密钥：</strong></p><p>在git bash中输入：</p><p><code>ssh-keygen -t rsa -C &quot;your email@example.com&quot;</code></p><p>会弹出存储地址和密码设置，直接按回车跳过即可</p><p>运行以下命令，将公钥内容复制到系统粘贴板上：</p><p><code> clip &lt; ~/.ssh/id_rsa.pub</code></p><p>在GitHub账户中添加公钥：</p><p>进入settings</p><p>找到<code>SSH and GPG Keys</code></p><p>创建新的密钥即可</p><p>测试：</p><p>输入以下命令：<code> $ ssh -T git@github.com</code>，最后出现successfully即可。</p><p><em><strong>注意：</strong></em></p><p>如果使用SSH方式，相应地要修改配置文件_config.xml中的地址引用</p><p>其他两种方式略</p><p><em>然后通过<code>&lt;用户名&gt;.github.io</code>的域名即可访问博客主页</em></p><h3 id="4-配置hexo博客"><a href="#4-配置hexo博客" class="headerlink" title="4.配置hexo博客"></a>4.配置hexo博客</h3><p>根据butterfly主题的官方文档一步步选择自己想要的配置：</p><p><a href="https://butterfly.js.org/">https://butterfly.js.org</a></p><p>之后可以创建不同的新页面，创建指令：</p><p><code>hexo new page xxxx</code></p><p>md页面前面要添加相关信息：</p><p><strong>页面配置：</strong><br><img src="/2024/07/09/%E5%88%A9%E7%94%A8GitHub-page%E9%83%A8%E7%BD%B2hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/1.png" alt="图片1"><br><img src="/2024/07/09/%E5%88%A9%E7%94%A8GitHub-page%E9%83%A8%E7%BD%B2hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/2.png" alt="图片2"></p><p>所有创建的页面都在source文件夹下。</p><p><strong>文章页配置：</strong><br><img src="/2024/07/09/%E5%88%A9%E7%94%A8GitHub-page%E9%83%A8%E7%BD%B2hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/3.png" alt="图片3"><br><img src="/2024/07/09/%E5%88%A9%E7%94%A8GitHub-page%E9%83%A8%E7%BD%B2hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/4.png" alt="图片4"><br><img src="/2024/07/09/%E5%88%A9%E7%94%A8GitHub-page%E9%83%A8%E7%BD%B2hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/5.png" alt="图片5"></p><p>所有文章都在source&#x2F;_posts目录下。</p><p>创建文章的指令：</p><p><code>hexo new &quot;文章的大标题&quot;</code></p><p>遇到的错误：</p><p>部署到GitHub之后打开页面只有框架没有样式</p><p>解决方法：</p><p>检查配置文件，发现url处写的是GitHub仓库的地址，改成博客的网址即可。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 项目经验 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
